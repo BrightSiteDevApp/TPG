@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Image Viewer</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background: hsl(38, 100%, 90%); /* slightly darker white */
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .gallery img {
+      width: 100%;
+      max-width: 300px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Lightbox styles */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 1rem;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 100%;
+      max-height: 90vh;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2rem;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    @media (max-width: 600px) {
+      .gallery img {
+        max-width: 100%;
+      }
+
+      .lightbox-close {
+        top: 10px;
+        right: 20px;
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Responsive Image Viewer</h2>
+
+  <div class="gallery">
+    <img src="allpics/p1.jpg" alt="Image 1">
+    <img src="allpics/p2.jpg" alt="Image 2">
+    <img src="allpics/p3.jpg" alt="Image 3">
+    <img src="allpics/p4.jpg" alt="Image 4">
+    <img src="allpics/p4.jpg" alt="Image 5">
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="closeBtn">&times;</span>
+    <img id="lightbox-img" src="" alt="Full Image">
+  </div>
+
+  <script>
+    const galleryImages = document.querySelectorAll(".gallery img");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const closeBtn = document.getElementById("closeBtn");
+
+    galleryImages.forEach(img => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add("active");
+      });
+    });
+
+    closeBtn.addEventListener("click", () => {
+      lightbox.classList.remove("active");
+    });
+
+    lightbox.addEventListener("click", (e) => {
+      if (e.target !== lightboxImg && e.target !== closeBtn) {
+        lightbox.classList.remove("active");
+      }
+    });
+  </script>
+
+</body>
+</html>
