@@ -17,11 +17,11 @@
   <meta name="author" content="The Purposeful Generation">
 
   <!-- Open Graph Tags (for social media sharing) -->
-  <meta property="og:title" content="The Purposeful Generation - Empowering Students">
-  <meta property="og:description" content="An NGO mentoring students to discover purpose, career paths, digital skills, and healthy living.">
-  <meta property="og:image" content="https://yourdomain.com/all-images/logo.png"> <!-- Replace with your hosted image URL -->
-  <meta property="og:url" content="https://yourdomain.com/"> <!-- Replace with your real website link -->
-  <meta property="og:type" content="website">
+<meta property="og:title" content="The Purposeful Generation - Empowering Students">
+<meta property="og:description" content="An NGO mentoring students to discover purpose, career paths, digital skills, and healthy living.">
+<meta property="og:image" content="https://brightsitedevapp.github.io/TPG/all-images/logo.png">
+<meta property="og:url" content="https://brightsitedevapp.github.io/TPG/">
+<meta property="og:type" content="website">
 
   <!-- Favicon -->
   <link rel="shortcut icon" href="all-images/logo.png" type="image/svg+xml">
@@ -697,7 +697,7 @@
             </li>
 
             <li>
-              <a href="#" class="footer-link">Privacy Policy</a>
+              <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
             </li>
 
             <li>
@@ -789,6 +789,56 @@
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <div id="cookie-consent" style="
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: #fff9e6;
+  border: 1px solid hsl(43, 61%, 50%);
+  padding: 1rem 1.5rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 9999;
+  display: none;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+">
+  <p style="margin-bottom: 1rem; color: #444; font-size: 0.95rem;">
+    We use cookies to improve your experience on our site. By continuing, you agree to our 
+    <a href="privacy-policy.html" target="_blank" style="color: hsl(43, 61%, 40%); text-decoration: underline;">Privacy Policy</a>.
+  </p>
+  <button onclick="acceptCookies()" style="
+    background-color: hsl(43, 61%, 50%);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  ">
+    Accept Cookies
+  </button>
+</div>
+
+
+<script>
+  function acceptCookies() {
+    localStorage.setItem("cookiesAccepted", "true");
+    document.getElementById("cookie-consent").style.display = "none";
+  }
+
+  window.addEventListener("DOMContentLoaded", function () {
+    if (!localStorage.getItem("cookiesAccepted")) {
+      document.getElementById("cookie-consent").style.display = "block";
+    }
+  });
+</script>
+
 
 </body>
 

@@ -150,6 +150,163 @@
       </section>
 
 
+      <!-- 
+    - #FOOTER
+  -->
+
+  <footer class="footer" id="contact">
+
+    <div class="footer-top">
+      <div class="container">
+
+        <div class="footer-brand">
+
+          <a href="#" class="logo">
+            <img src="all-images/logo.png" alt="Eduland logo">
+          </a>
+
+          <p class="footer-text">
+            Shifting the minds of the young generation to see the possibilities in themselves.
+          </p>
+
+          <ul class="social-list">
+
+            <li>
+  <a href="https://www.facebook.com/profile.php?id=100094789808535" class="social-link" target="_blank">
+    <ion-icon name="logo-facebook"></ion-icon>
+  </a>
+</li>
+
+<li>
+  <a href="https://wa.me/2348103762754?text=Good%20day%2C%20my%20name%20is%20________.%20I%20came%20across%20The%20Purposeful%20Generation%20and%20I'm%20interested%20in%20supporting%20your%20mission.%20Kindly%20guide%20me%20on%20how%20to%20become%20a%20sponsor." class="social-link" target="_blank">
+    <ion-icon name="logo-whatsapp"></ion-icon>
+  </a>
+</li>
+
+<li>
+  <a href="https://www.instagram.com/thepurposefulgeneration" class="social-link" target="_blank">
+    <ion-icon name="logo-instagram"></ion-icon>
+  </a>
+</li>
+
+          </ul>
+
+        </div>
+
+        <div class="footer-link-box">
+
+          <ul class="footer-list">
+
+            <li>
+              <p class="footer-link-title">Sections</p>
+            </li>
+
+            <li>
+              <a href="index.html" class="footer-link">Home</a>
+            </li>
+
+            <li>
+              <a href="out-reach-list.html" class="footer-link">Programs</a>
+            </li>
+
+            <li>
+              <a href="up-coming.html" class="footer-link">Upcoming Events</a>
+            </li>
+
+            <li>
+              <a href="members.html" class="footer-link">Facilitators</a>
+            </li>
+
+          </ul>
+
+          <ul class="footer-list">
+
+            <li>
+              <p class="footer-link-title">PENDING...</p>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">About</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Terms</a>
+            </li>
+
+            <li>
+              <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Careers</a>
+            </li>
+
+          </ul>
+
+          <ul class="footer-list">
+
+            <li>
+              <p class="footer-link-title">PENDING....</p>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Select</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Services</a>
+            </li>
+
+            <li>
+              <a href="#" class="footer-link">Payment</a>
+            </li>
+
+          </ul>
+
+          <ul class="footer-list">
+
+            <li>
+              <p class="footer-link-title">Contact</p>
+            </li>
+
+            <li class="contact-item">
+              <span>Call : </span>
+
+             <a href="tel:+2348103762754" class="contact-link">+234 810 376 2754</a>
+            </li>
+
+            <li class="contact-item">
+              <span>Email : </span>
+
+             <a href="mailto:thepurposefulg@gmail.com" class="contact-link">thepurposefulg@gmail.com</a>
+            </li>
+
+            <li class="contact-item">
+              <span>Address : </span>
+
+              <a href="#" class="contact-link">
+                <address>Kaduna, Nigeria</address>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <p class="copyright">
+          &copy; 2025 <a href="#home">ThePurposefulGeneration</a>. All right reserved
+        </p>
+      </div>
+    </div>
+
+  </footer>
+
+
       <script src="./assets/js/script.js"></script>
 
       <!-- 
@@ -157,6 +314,57 @@
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+
+  <div id="cookie-consent" style="
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: #fff9e6;
+  border: 1px solid hsl(43, 61%, 50%);
+  padding: 1rem 1.5rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 9999;
+  display: none;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+">
+  <p style="margin-bottom: 1rem; color: #444; font-size: 0.95rem;">
+    We use cookies to improve your experience on our site. By continuing, you agree to our 
+    <a href="privacy-policy.html" target="_blank" style="color: hsl(43, 61%, 40%); text-decoration: underline;">Privacy Policy</a>.
+  </p>
+  <button onclick="acceptCookies()" style="
+    background-color: hsl(43, 61%, 50%);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  ">
+    Accept Cookies
+  </button>
+</div>
+
+
+<script>
+  function acceptCookies() {
+    localStorage.setItem("cookiesAccepted", "true");
+    document.getElementById("cookie-consent").style.display = "none";
+  }
+
+  window.addEventListener("DOMContentLoaded", function () {
+    if (!localStorage.getItem("cookiesAccepted")) {
+      document.getElementById("cookie-consent").style.display = "block";
+    }
+  });
+</script>
+
 
 
 </body>
