@@ -282,7 +282,7 @@ body { background: var(--white); }
 
 .hero {
   background: var(--gradient);
-  padding: 150px 0 var(--section-padding);
+  padding: 170px 0 var(--section-padding);
 }
 
 .hero-banner { margin-bottom: 30px; }
