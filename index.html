@@ -849,6 +849,82 @@
   });
 </script>
 
+<!-- Newsletter Popup -->
+<div id="newsletter-popup" style="display: none; position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%); z-index: 1000; background: white; padding: 20px;
+  border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.2); max-width: 600px; width: 90%;">
+
+  <!-- Close Button -->
+  <div style="text-align: right;">
+    <button onclick="document.getElementById('newsletter-popup').style.display='none'; document.getElementById('popup-overlay').style.display='none';" style="font-size: 18px; border: none; background: none; cursor: pointer;">&times;</button>
+  </div>
+
+  <!-- Brevo Form (paste the full form below) -->
+  <div class="sib-form" style="text-align: center; background-image: url(https://img.mailinblue.com/9585531/images/content_library/original/6877844750651b6eb8669b47.png); background-size: cover; background-repeat: no-repeat; background-position: center center;">
+    <div id="sib-form-container" class="sib-form-container">
+      <div id="sib-container" class="sib-container--large sib-container--vertical" style="text-align:center; background-color:rgba(255,255,255,1); max-width:540px; border-radius:3px; border-width:1px; border-color:#b69d1c; border-style:dotted;">
+        <form id="sib-form" method="POST" action="https://542abc0b.sibforms.com/serve/MUIFAAcx00LbKQ--nHy40pHLZJUtinsF76hDsITD6HQKwd0XoLdRHPC7J5ZOCjluLh0OvhrqOaXi0YsklcFSyylJk7asOiX6IJEvLYKKrzPSyuPD8n_8iRQZIfdDbrZIBengGxmvF45sjW1_4URsls_MeXW0TEAA9PndnIzO9g0AdJCUBMwrEKOrzwtOsrGb1fQeYIJabXEVrYSn">
+          <div style="padding: 8px 0;">
+            <div class="sib-form-block" style="font-size:32px; font-weight:700; font-family:Helvetica, sans-serif; color:#b69d1c;">Newsletter</div>
+          </div>
+          <div style="padding: 8px 0;">
+            <div class="sib-form-block" style="font-size:16px; font-family:Helvetica, sans-serif; color:#3C4858;">Subscribe to our newsletter and stay updated.</div>
+          </div>
+          <div style="padding: 8px 0;">
+            <div class="sib-input sib-form-block">
+              <div class="form__entry entry_block">
+                <label class="entry__label" style="font-weight: 700; font-size:16px; font-family:Helvetica, sans-serif; color:#3c4858;" for="EMAIL" data-required="*">Enter your email address to subscribe</label>
+                <div class="entry__field">
+                  <input class="input" type="text" id="EMAIL" name="EMAIL" autocomplete="off" placeholder="EMAIL" data-required="true" required />
+                </div>
+                <label class="entry__error entry__error--primary" style="font-size:16px; font-family:Helvetica, sans-serif; color:#661d1d;"></label>
+                <label class="entry__specification" style="font-size:12px; font-family:Helvetica, sans-serif; color:#8390A4;">Provide your email address to subscribe. E.g. abc@xyz.com</label>
+              </div>
+            </div>
+          </div>
+          <div style="padding: 8px 0;">
+            <div class="sib-form-block" style="text-align: left">
+              <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:16px; font-weight:700; font-family:Helvetica, sans-serif; color:#FFFFFF; background-color:#b69d1c; border-radius:10px; border:none;" form="sib-form" type="submit">
+                SUBSCRIBE
+              </button>
+            </div>
+          </div>
+          <input type="text" name="email_address_check" value="" class="input--hidden">
+          <input type="hidden" name="locale" value="en">
+          <input type="hidden" name="html_type" value="simple">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay -->
+<div id="popup-overlay" style="display: none; position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 999;"></div>
+
+<!-- Popup Script -->
+<script>
+  // Wait 8s, then show popup only if user hasn't seen it before
+  window.addEventListener('load', () => {
+    if (!localStorage.getItem('TPG_newsletter_seen')) {
+      setTimeout(() => {
+        document.getElementById('newsletter-popup').style.display = 'block';
+        document.getElementById('popup-overlay').style.display = 'block';
+        localStorage.setItem('TPG_newsletter_seen', 'true');
+      }, 8000);
+    }
+  });
+
+  document.getElementById('popup-overlay').onclick = function () {
+    document.getElementById('newsletter-popup').style.display = 'none';
+    this.style.display = 'none';
+  };
+</script>
+
+<!-- Brevo Form Script -->
+<script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+
+
 </body>
 
 </html>
