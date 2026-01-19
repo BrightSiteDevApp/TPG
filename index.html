@@ -2,6 +2,27 @@
 <html lang="en">
 
 <head>
+
+  <script>
+  // 1. Check if the URL has the secret code "?mode=admin"
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('mode') === 'admin') {
+      // Save a "Developer Pass" in the browser
+      localStorage.setItem('tpg_dev_mode', 'true');
+      alert("Developer Access Granted! Maintenance mode disabled for you.");
+      // Clean the URL to hide the secret
+      window.history.replaceState({}, document.title, window.location.pathname);
+  }
+
+  // 2. Check if the user is a normal visitor (No Developer Pass)
+  if (!localStorage.getItem('tpg_dev_mode')) {
+      // If they are NOT on the maintenance page, send them there
+      if (!window.location.href.includes("maintenance.html")) {
+          window.location.replace("maintenance.html");
+      }
+  }
+</script>
+
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
