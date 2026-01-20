@@ -150,8 +150,12 @@
             if (docSnap.exists()) {
                 const data = docSnap.data();
                 const content = data.fullDesc ? data.fullDesc.replace(/\n/g, '<br>') : data.description.replace(/\n/g, '<br>');
+                
+                // --- FIX APPLIED HERE ---
+                // We now use data.date directly as text. 
+                // This prevents the computer from messing up dates like "May 27 & 28".
                 let displayDate = data.date;
-                if(Date.parse(data.date)) displayDate = new Date(data.date).toDateString();
+                
                 document.title = `${data.title} - TPG`; 
                 
                 // Build Gallery HTML if images exist
