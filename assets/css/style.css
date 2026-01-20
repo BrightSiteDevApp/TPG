@@ -162,26 +162,20 @@ body { background: var(--white); }
 
 
 
-
-
 /*-----------------------------------*\
- * #HEADER
+ * #NEW HEADER (Dropdown Style)
 \*-----------------------------------*/
 
 .header {
-  padding-block: 25px;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 4;
-  transition: padding var(--transition);
-}
-
-.header.active {
-  background: var(--cultured);
-  box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.1);
-  padding-block: 20px;
+  background-color: var(--white);
+  padding-block: 15px;
+  z-index: 1000;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  transition: var(--transition);
 }
 
 .header .container {
@@ -190,73 +184,139 @@ body { background: var(--white); }
   align-items: center;
 }
 
-.header .logo { width: 120px; }
-
-.logo img { width: 100%; }
-
-.menu-open-btn {
-  font-size: 35px;
-  color: var(--mango-tango);
+.logo img {
+  width: 140px;
+  display: block;
 }
 
+/* --- HAMBURGER BUTTON (Mobile) --- */
+.nav-toggle-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+}
+
+.nav-toggle-btn .line {
+  width: 28px;
+  height: 3px;
+  background-color: var(--rich-black-fogra-29);
+  border-radius: 5px;
+  transition: var(--transition);
+}
+
+/* Animation to turn Hamburger into X */
+.nav-toggle-btn.active .line-1 { transform: rotate(45deg) translate(5px, 6px); }
+.nav-toggle-btn.active .line-2 { opacity: 0; }
+.nav-toggle-btn.active .line-3 { transform: rotate(-45deg) translate(5px, -6px); }
+
+/* --- MOBILE DROPDOWN MENU --- */
 .navbar {
-  position: fixed;
-  top: 0;
-  left: -250px;
+  position: absolute;
+  top: 100%; /* Push directly below header */
+  left: 0;
   width: 100%;
-  max-width: 250px;
-  height: 100%;
-  background: var(--mantis);
-  padding: 80px 20px;
-  transition: 0.15s ease-in;
-  z-index: 3;
+  background-color: var(--white);
+  padding-inline: 20px;
+  
+  /* The Dropdown Animation Logic */
+  max-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  transition: 0.4s ease-in-out; /* Smooth slide down */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
 .navbar.active {
-  left: 0;
-  transition: 0.25s ease-out;
+  max-height: 500px; /* Open height */
+  visibility: visible;
+  padding-bottom: 30px;
 }
 
-.menu-close-btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 30px;
-  padding: 5px;
-  background: var(--rich-black-fogra-29);
-  color: var(--white);
+.navbar-list {
+  text-align: center;
+  margin-top: 20px;
 }
-
-.navbar .logo {
-  width: 160px;
-  margin-bottom: 30px;
-  margin-inline: auto;
-}
-
-.navbar-list { margin-bottom: 15px; }
 
 .navbar-link {
-  color: var(--rich-black-fogra-29);
-  font-weight: var(--fw-500);
-  padding-block: 15px;
-  font-family: var(--dm-sans);
+  color: var(--onyx);
+  font-family: var(--ff-poppins);
+  font-weight: 500;
+  padding: 12px;
+  display: block;
+  transition: var(--transition);
 }
 
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: hsla(0, 0%, 0%, 0.7);
-  pointer-events: none;
-  opacity: 0;
-  transition: 0.15s ease-out;
-  z-index: 3;
+.navbar-link:hover { color: var(--orange-web); }
+
+/* --- SPONSOR BUTTON (The "Finer" Look) --- */
+.btn-sponsor {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--orange-web);
+  color: var(--white);
+  padding: 12px 28px;
+  border-radius: 50px; /* Pill Shape */
+  font-family: var(--ff-poppins);
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 0 5px 15px rgba(255, 165, 0, 0.3); /* Glow */
+  transition: var(--transition);
 }
 
-.overlay.active {
-  pointer-events: all;
-  opacity: 1;
+.btn-sponsor:hover {
+  background: var(--rich-black-fogra-29);
+  transform: translateY(-3px);
 }
 
+/* Hide desktop button on mobile, show mobile button */
+.desktop-sponsor { display: none; }
+.mobile-sponsor { margin-top: 15px; }
+
+/*-----------------------------------*\
+ * #DESKTOP STYLES (Min-width 992px)
+\*-----------------------------------*/
+@media (min-width: 992px) {
+  
+  .nav-toggle-btn { display: none; } /* Hide Hamburger */
+  
+  .navbar {
+    position: static;
+    max-height: unset;
+    visibility: visible;
+    width: auto;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    overflow: visible;
+    margin-left: auto; /* Push to right */
+    margin-right: 40px;
+  }
+
+  .navbar-list {
+    display: flex;
+    gap: 35px;
+    margin-top: 0;
+  }
+
+  .navbar-link { padding: 0; }
+  
+  /* Desktop Hover Line Effect */
+  .navbar-link::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: var(--orange-web);
+    transition: width 0.3s;
+  }
+  .navbar-link:hover::after { width: 100%; }
+
+  /* Switch buttons */
+  .mobile-sponsor { display: none; }
+  .desktop-sponsor { display: inline-flex; }
+}
 
 
 
@@ -1178,3 +1238,118 @@ body { background: var(--white); }
   .footer-link-box { display: contents; } 
   .footer-list { max-width: 100%; }
 }
+/* ----------------------------------- */
+/* #MOBILE HEADER FIX                  */
+/* ----------------------------------- */
+
+@media (max-width: 991px) {
+  
+  /* 1. Force the header to be white and fixed at the top */
+  .header {
+    background-color: #ffffff !important; /* Force White Background */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Adds a subtle shadow */
+    padding-block: 15px; /* Ensure strictly defined vertical padding */
+  }
+
+  /* 2. Push the Hero section down so it doesn't hide behind the new white header */
+  .hero {
+    margin-top: 90px; /* Pushes the image down below the header */
+    padding-top: 40px; /* Reduces the inner padding since we have margin now */
+  }
+
+}
+
+/* ----------------------------------- */
+/* #MODERN NAVBAR STYLES               */
+/* ----------------------------------- */
+
+/* 1. Desktop Navbar Layout */
+@media (min-width: 992px) {
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-left: auto; /* Pushes nav to the right */
+  }
+
+  .mobile-logo { display: none; } /* Hide duplicate logo on desktop */
+
+  .navbar-list {
+    display: flex;
+    gap: 35px; /* More breathing room */
+    align-items: center;
+    margin: 0 auto; /* Centers the links */
+  }
+
+  /* 2. Modern Link Styling */
+  .navbar-link {
+    color: var(--onyx);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 15px; /* Clean, readable size */
+    padding: 5px 0;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  .navbar-link:hover,
+  .navbar-link.active {
+    color: var(--orange-web);
+  }
+
+  /* 3. The "Sliding Underline" Animation */
+  .navbar-link::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--orange-web);
+    transition: width 0.3s ease;
+  }
+
+  .navbar-link:hover::after,
+  .navbar-link.active::after {
+    width: 100%; /* Line expands on hover */
+  }
+
+  /* 4. The "Sponsor" Button (Pill Shape) */
+  .navbar-actions {
+    margin-left: 20px;
+  }
+
+  .btn-sponsor {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--orange-web);
+    color: #fff;
+    padding: 10px 28px;
+    border-radius: 50px; /* Modern Pill Shape */
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(255, 159, 67, 0.4); /* Glow effect */
+    transition: all 0.3s ease;
+  }
+
+  .btn-sponsor ion-icon {
+    font-size: 1.4rem;
+  }
+
+  .btn-sponsor:hover {
+    background: var(--rich-black-fogra-29); /* Dark on hover */
+    transform: translateY(-3px); /* Lifts up slightly */
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  }
+}
+
