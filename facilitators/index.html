@@ -18,10 +18,27 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&family=Poppins:wght@600;700&family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    @keyframes skeleton-loading {
+      0% { background-color: #e0e0e0; }
+      50% { background-color: #f0f0f0; }
+      100% { background-color: #e0e0e0; }
+    }
+    .skeleton {
+      animation: skeleton-loading 1.5s infinite ease-in-out;
+      border-radius: 4px;
+      background-color: #e0e0e0;
+    }
+    /* Specific shapes for Facilitators */
+    .skeleton-img-circle { width: 250px; height: 250px; border-radius: 50%; margin: 0 auto 20px; }
+    .skeleton-title { width: 60%; height: 28px; margin: 0 auto 10px; }
+    .skeleton-text { width: 40%; height: 16px; margin: 0 auto; }
+  </style>
+
 </head>
 
 <body>
-
 
   <header class="header" data-header>
     <div class="container">
@@ -41,7 +58,8 @@
           <li><a href="../" class="navbar-link">Home</a></li>
           <li><a href="../outreach/" class="navbar-link">Programs</a></li>
           <li><a href="../upcoming/" class="navbar-link">Upcoming Events</a></li>
-          <li><a href="#" class="navbar-link active">Facilitators</a></li> <li><a href="https://forms.gle/QSWAaJ5KsvE1VRS66" target="_blank" class="navbar-link">Join Us</a></li>
+          <li><a href="../facilitators/" class="navbar-link active">Facilitators</a></li> 
+          <li><a href="https://forms.gle/QSWAaJ5KsvE1VRS66" target="_blank" class="navbar-link">Join Us</a></li>
           
           <li class="mobile-sponsor">
              <a href="https://wa.me/2348103762754" target="_blank" class="btn btn-sponsor">
@@ -70,10 +88,7 @@
           </div>
 
           <ul class="instructor-list" id="all-facilitators-container">
-             <div style="width:100%; text-align:center; padding: 50px;">
-                <p style="font-size: 1.2rem; color: #666;">Loading Team Members...</p>
-            </div>
-          </ul>
+              </ul>
 
           <img src="../assets/images/instructor-vactor-2.svg" alt="Vector line art" class="vector-line">
 
@@ -86,7 +101,7 @@
       <div class="container">
 
         <div class="footer-brand">
-          <a href="../index.html" class="logo">
+          <a href="../" class="logo">
             <img src="../all-images/logo.png" alt="TPG logo" style="width: 140px;">
           </a>
 
@@ -115,7 +130,7 @@
 
         <ul class="footer-list">
           <li><p class="footer-link-title">Explore</p></li>
-          <li><a href="../index.html" class="footer-link">Home</a></li>
+          <li><a href="../" class="footer-link">Home</a></li>
           <li><a href="../outreach/" class="footer-link">Programs</a></li>
           <li><a href="../upcoming/" class="footer-link">Upcoming Events</a></li>
           <li><a href="../facilitators/" class="footer-link">Facilitators</a></li>
@@ -164,9 +179,9 @@
     <div class="footer-bottom">
       <div class="container">
         <p class="copyright">
-          &copy; 2025 <a href="index.html" style="color:white;">ThePurposefulGeneration</a>. All rights reserved.
+          &copy; 2025 <a href="../" style="color:white;">ThePurposefulGeneration</a>. All rights reserved.
           
-          <a href="admin-login.html" style="margin-left: 15px; opacity: 0.2; color: white;" title="Staff Login">
+          <a href="../admin-login.html" style="margin-left: 15px; opacity: 0.2; color: white;" title="Staff Login">
             <ion-icon name="lock-closed-outline" style="vertical-align: middle;"></ion-icon>
           </a>
           </p>
@@ -175,10 +190,8 @@
 
   </footer>
 
-       <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-
 
   <div id="cookie-consent" style="
   position: fixed; bottom: 20px; left: 20px; right: 20px;
@@ -219,9 +232,24 @@
         import { db } from "../assets/js/firebase-init.js";
         import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
       
+        // --- FACILITATOR SKELETON ---
+        // Creates a round circle placeholder + 2 lines of text
+        const facilitatorSkeleton = `
+          <li>
+            <div class="instructor-card" style="text-align: center;">
+              <div class="skeleton skeleton-img-circle"></div>
+              <div class="skeleton skeleton-title"></div>
+              <div class="skeleton skeleton-text"></div>
+            </div>
+          </li>
+        `.repeat(3); // Show 3 fake profiles
+
         async function loadAllFacilitators() {
             const container = document.getElementById('all-facilitators-container');
-            // Sorting by newest created first
+            
+            // 1. SHOW SKELETON IMMEDIATELY
+            container.innerHTML = facilitatorSkeleton;
+
             const q = query(collection(db, "facilitators"), orderBy("createdAt", "desc")); 
       
             try {
@@ -254,6 +282,8 @@
                       </li>
                     `;
                 });
+                
+                // 2. REPLACE SKELETON WITH REAL DATA
                 container.innerHTML = html;
       
             } catch (error) {

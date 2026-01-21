@@ -19,6 +19,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&family=Poppins:wght@600;700&family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    @keyframes skeleton-loading {
+      0% { background-color: #e0e0e0; }
+      50% { background-color: #f0f0f0; }
+      100% { background-color: #e0e0e0; }
+    }
+    .skeleton {
+      animation: skeleton-loading 1.5s infinite ease-in-out;
+      border-radius: 4px;
+      background-color: #e0e0e0;
+    }
+    .skeleton-img-rect { width: 100%; height: 250px; margin-bottom: 15px; border-radius: 6px; }
+    .skeleton-title { width: 70%; height: 28px; margin-bottom: 15px; }
+    .skeleton-text { width: 90%; height: 16px; margin-bottom: 8px; }
+    .skeleton-btn { width: 120px; height: 35px; margin-top: 20px; border-radius: 50px; }
+  </style>
+
 </head>
 
 <body>
@@ -40,7 +58,7 @@
         <ul class="navbar-list">
           <li><a href="../" class="navbar-link">Home</a></li>
           <li><a href="../outreach/" class="navbar-link">Programs</a></li>
-          <li><a href="#" class="navbar-link active">Upcoming Events</a></li> <li><a href="../facilitators/" class="navbar-link">Facilitators</a></li>
+          <li><a href="../upcoming/" class="navbar-link active">Upcoming Events</a></li> <li><a href="../facilitators/" class="navbar-link">Facilitators</a></li>
           <li><a href="https://forms.gle/QSWAaJ5KsvE1VRS66" target="_blank" class="navbar-link">Join Us</a></li>
           
           <li class="mobile-sponsor">
@@ -66,10 +84,7 @@
           <h2 class="h2 departments-title">Up-Coming Programs</h2>
 
           <ul class="departments-list" id="all-upcoming-container">
-             <div style="width:100%; text-align:center; padding: 50px;">
-                <p style="font-size: 1.2rem; color: #666;">Checking for events...</p>
-            </div>
-          </ul>
+              </ul>
 
         <button onclick="history.back()" class="btn btn-primary" style="margin-top: 40px;">Go Back</button>
 
@@ -84,7 +99,7 @@
       <div class="container">
 
         <div class="footer-brand">
-          <a href="../index.html" class="logo">
+          <a href="../" class="logo">
             <img src="../all-images/logo.png" alt="TPG logo" style="width: 140px;">
           </a>
 
@@ -113,7 +128,7 @@
 
         <ul class="footer-list">
           <li><p class="footer-link-title">Explore</p></li>
-          <li><a href="../index.html" class="footer-link">Home</a></li>
+          <li><a href="../" class="footer-link">Home</a></li>
           <li><a href="../outreach/" class="footer-link">Programs</a></li>
           <li><a href="../upcoming/" class="footer-link">Upcoming Events</a></li>
           <li><a href="../facilitators/" class="footer-link">Facilitators</a></li>
@@ -162,9 +177,9 @@
    <div class="footer-bottom">
       <div class="container">
         <p class="copyright">
-          &copy; 2025 <a href="index.html" style="color:white;">ThePurposefulGeneration</a>. All rights reserved.
+          &copy; 2025 <a href="../" style="color:white;">ThePurposefulGeneration</a>. All rights reserved.
           
-          <a href="admin-login.html" style="margin-left: 15px; opacity: 0.2; color: white;" title="Staff Login">
+          <a href="../admin-login.html" style="margin-left: 15px; opacity: 0.2; color: white;" title="Staff Login">
             <ion-icon name="lock-closed-outline" style="vertical-align: middle;"></ion-icon>
           </a>
           </p>
@@ -215,8 +230,25 @@
         import { db } from "../assets/js/firebase-init.js";
         import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
       
+        // --- UPCOMING EVENTS SKELETON ---
+        const eventSkeleton = `
+          <li>
+            <div class="departments-card">
+              <div class="skeleton skeleton-img-rect"></div>
+              <div class="skeleton skeleton-title"></div>
+              <div class="skeleton skeleton-text" style="width:40%;"></div>
+              <div class="skeleton skeleton-text"></div>
+              <div class="skeleton skeleton-btn"></div>
+            </div>
+          </li>
+        `.repeat(3); // Show 3 fake cards
+
         async function loadAllUpcoming() {
             const container = document.getElementById('all-upcoming-container');
+            
+            // 1. SHOW SKELETON IMMEDIATELY
+            container.innerHTML = eventSkeleton;
+
             // Sorting by Date ASCENDING (Soonest event first)
             const q = query(collection(db, "upcoming_events"), orderBy("date", "asc")); 
       
@@ -270,6 +302,8 @@
                       </li>
                     `;
                 });
+                
+                // 2. REPLACE SKELETON WITH REAL DATA
                 container.innerHTML = html;
       
             } catch (error) {

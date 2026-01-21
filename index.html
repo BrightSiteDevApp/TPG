@@ -472,15 +472,48 @@
         import { db } from "./assets/js/firebase-init.js";
         import { collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
       
-        // 1. FETCH FACILITATORS (Limit to 3)
+        // --- HELPER: Skeleton HTML Strings ---
+        
+        // 1. Facilitator Skeleton (Circle Image)
+        const facilitatorSkeletonHTML = `
+            <li>
+                <div class="instructor-card" style="text-align: center;">
+                    <div class="skeleton skeleton-img-circle"></div>
+                    <div class="skeleton skeleton-title skeleton-center"></div>
+                    <div class="skeleton skeleton-text skeleton-center" style="width: 40%;"></div>
+                </div>
+            </li>
+        `.repeat(3); // Show 3 skeletons
+
+        // 2. Event/Outreach Skeleton (Rectangle Image)
+        const cardSkeletonHTML = `
+            <li>
+                <div class="departments-card">
+                    <div class="skeleton skeleton-img-rect"></div>
+                    <div class="skeleton skeleton-title"></div>
+                    <div class="skeleton skeleton-text" style="width: 40%; margin-bottom: 15px;"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text"></div>
+                </div>
+            </li>
+        `.repeat(3); // Show 3 skeletons
+
+
+        // --- FUNCTIONS ---
+
+        // 1. FETCH FACILITATORS
         async function loadFacilitators() {
             const container = document.getElementById('facilitators-container');
+            
+            // SHOW SKELETON
+            container.innerHTML = facilitatorSkeletonHTML;
+
             const q = query(collection(db, "facilitators"), orderBy("createdAt", "desc"), limit(3));
             
             try {
                 const querySnapshot = await getDocs(q);
                 if (querySnapshot.empty) {
-                    container.innerHTML = "<p class='section-text' style='text-align:center;'>No facilitators added yet.</p>";
+                    container.innerHTML = "<p class='section-text' style='text-align:center; width:100%;'>No facilitators added yet.</p>";
                     return;
                 }
       
@@ -501,12 +534,19 @@
                     `;
                 });
                 container.innerHTML = html;
-            } catch (error) { console.error(error); }
+            } catch (error) { 
+                console.error(error);
+                container.innerHTML = "<p style='color:red; text-align:center;'>Error loading data.</p>";
+            }
         }
       
-        // 2. FETCH UPCOMING EVENTS (Limit to 3)
+        // 2. FETCH UPCOMING EVENTS
         async function loadUpcomingEvents() {
             const container = document.getElementById('upcoming-events-container');
+            
+            // SHOW SKELETON
+            container.innerHTML = cardSkeletonHTML;
+
             const q = query(collection(db, "upcoming_events"), orderBy("date", "asc"), limit(3)); 
       
             try {
@@ -525,8 +565,6 @@
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
                     const dateString = new Date(data.date).toDateString();
-                    
-                    // FIX: Use "event/" NOT "../event/" for the home page
                     const detailLink = `event/?id=${doc.id}&collection=upcoming_events`;
 
                     html += `
@@ -555,10 +593,13 @@
             } catch (error) { console.error(error); }
         }
       
-        // 3. FETCH OUTREACH PROGRAMS (Limit to 3)
-        // FIX: Renamed function from loadFacilitators to loadOutreach
+        // 3. FETCH OUTREACH PROGRAMS
         async function loadOutreach() {
             const container = document.getElementById('outreach-container');
+            
+            // SHOW SKELETON
+            container.innerHTML = cardSkeletonHTML;
+
             const q = query(collection(db, "outreach_programs"), orderBy("createdAt", "desc"), limit(3)); 
       
             try {
@@ -571,8 +612,6 @@
                 let html = "";
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
-                    
-                    // FIX: Use "event/" NOT "../event/" for the home page
                     const detailLink = `event/?id=${doc.id}&collection=outreach_programs`;
 
                     html += `
