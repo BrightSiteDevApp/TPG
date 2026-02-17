@@ -127,14 +127,14 @@
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
-  <script>
+ <script>
   function smartBack() {
-    // 1. Check if the previous page (referrer) exists AND belongs to your website
-    if (document.referrer && document.referrer.includes(window.location.hostname)) {
-        history.back(); // Standard back behavior
+    // 1. Check if the user actually came from a previous page on your site
+    if (document.referrer && document.referrer.indexOf(window.location.hostname) !== -1) {
+        history.back();
     } else {
-        // 2. If no history or opened directly, force go to Home
-        window.location.href = 'index.html'; 
+        // 2. The "../" tells the browser to go UP one folder level
+        window.location.href = '../index.html'; 
     }
   }
 </script>
