@@ -99,9 +99,9 @@
   <header class="page-header">
     <div class="header-container">
       <a href="../" class="header-logo"><img src="../all-images/logo2.png" alt="TPG logo"></a>
-      <button onclick="history.back()" class="btn btn-primary" style="padding: 10px 25px; border-radius: 50px; font-size: 0.9rem;">
-        <ion-icon name="arrow-back-outline" style="display:inline-block; vertical-align:middle; margin-right:5px;"></ion-icon> Back
-      </button>
+      <button onclick="smartBack()" class="btn btn-primary" style="padding: 10px 25px; border-radius: 50px; font-size: 0.9rem;">
+    <ion-icon name="arrow-back-outline" style="display:inline-block; vertical-align:middle; margin-right:5px;"></ion-icon> Back
+</button>
     </div>
   </header>
 
@@ -126,6 +126,18 @@
 
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <script>
+  function smartBack() {
+    // 1. Check if the previous page (referrer) exists AND belongs to your website
+    if (document.referrer && document.referrer.includes(window.location.hostname)) {
+        history.back(); // Standard back behavior
+    } else {
+        // 2. If no history or opened directly, force go to Home
+        window.location.href = 'index.html'; 
+    }
+  }
+</script>
 
   <script type="module">
     // Path updated
