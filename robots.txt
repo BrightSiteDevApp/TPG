@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://thepurposefulgen.hopto.org/sitemap.xml
