@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bio-Data Form - TPG</title>
+  
+  <link rel="stylesheet" href="../assets/css/style.css">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&family=Poppins:wght@600;700&family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Custom Form Styling matching TPG Theme */
+    .bio-form-section { 
+      padding-block: 140px 80px; 
+      background: var(--floral-white); 
+      min-height: 100vh;
+    }
+    
+    .form-container { 
+      max-width: 800px; 
+      width: 100%; 
+      margin-inline: auto; 
+      background: var(--white); 
+      padding: 40px; 
+      border-radius: 20px; 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .form-group { margin-bottom: 25px; }
+    .form-group label { 
+      display: block; 
+      font-family: var(--ff-poppins); 
+      font-weight: 600; 
+      margin-bottom: 8px; 
+      color: var(--onyx); 
+      font-size: 15px;
+    }
+    
+    .form-control {
+      width: 100%; 
+      padding: 14px 20px; 
+      border: 1px solid #ddd; 
+      border-radius: 8px;
+      font-family: var(--ff-rubik); 
+      font-size: 15px; 
+      outline: none; 
+      transition: var(--transition);
+      background: var(--floral-white);
+      box-sizing: border-box; /* Ensures padding doesn't break width */
+    }
+    
+    .form-control:focus { 
+      border-color: var(--orange-web); 
+      background: var(--white); 
+      box-shadow: 0 0 0 3px hsla(39, 100%, 50%, 0.1); 
+    }
+
+    /* Grid for side-by-side inputs on Desktop */
+    .grid-2 { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 20px; 
+    }
+    
+    .radio-group { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px; }
+    .radio-item { display: flex; align-items: center; gap: 8px; font-family: var(--ff-rubik); color: var(--sonic-silver);}
+    
+    .submit-btn { width: 100%; font-size: 18px; margin-top: 20px;}
+    .submit-btn:disabled { background: var(--silver-chalice); cursor: not-allowed; box-shadow: none; transform: none;}
+    
+    #statusMessage { margin-top: 20px; text-align: center; font-family: var(--ff-rubik); font-weight: 500; display: none; padding: 15px; border-radius: 8px;}
+    .status-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+    .status-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+    /* ========================================= */
+    /* RESPONSIVE DESIGN (MOBILE & TABLET)       */
+    /* ========================================= */
+    @media (max-width: 768px) {
+      .bio-form-section {
+        padding-block: 100px 40px; /* Reduced top padding for mobile */
+      }
+      .form-container { 
+        padding: 25px 20px; /* Less internal padding to save space */
+        width: 92%; /* Prevents the box from touching the edges of the phone */
+      }
+      .grid-2 { 
+        grid-template-columns: 1fr; /* Stacks inputs vertically on phones */
+        gap: 0; /* Removes gap since standard form-group margin will apply */
+      }
+      .form-group label {
+        font-size: 14px; /* Slightly smaller labels for mobile */
+      }
+      .form-control {
+        font-size: 14px; /* Prevents iOS auto-zoom on input focus */
+        padding: 12px 15px;
+      }
+      .h2 {
+        font-size: 28px; /* Scale down the main heading */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header active">
+    <div class="container">
+      <a href="../" class="logo"><img src="../all-images/logo2.png" alt="TPG logo"></a>
+      <a href="../" class="btn btn-primary" style="padding: 10px 25px;">Back Home</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="bio-form-section">
+      <div class="container">
+        <div class="form-container">
+          <h2 class="h2" style="text-align: center; margin-bottom: 10px;">Member Bio-Data Form</h2>
+          <p class="section-text" style="text-align: center; margin-bottom: 40px;">Help us know you better so we can empower you effectively.</p>
+
+          <form id="bioDataForm">
+            
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" name="fullName" class="form-control" placeholder="John Doe" required>
+            </div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Date of Birth</label>
+                <input type="date" name="dob" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label>Gender</label>
+                <select name="gender" class="form-control" required>
+                  <option value="" disabled selected>Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="email" class="form-control" placeholder="example@mail.com" required>
+              </div>
+              <div class="form-group">
+                <label>WhatsApp Number</label>
+                <input type="tel" name="whatsapp" class="form-control" placeholder="+234..." required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Profile Picture (Please upload a clean photo of yourself)</label>
+              <input type="file" id="imageInput" class="form-control" accept="image/*" required>
+            </div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label>What is your hobby?</label>
+                <input type="text" name="hobby" class="form-control" placeholder="Reading, Coding, Sports..." required>
+              </div>
+              <div class="form-group">
+                <label>Any Digital Skill?</label>
+                <input type="text" name="digitalSkill" class="form-control" placeholder="Graphic design, Web dev, etc. (Put 'None' if NA)" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Tell us about yourself</label>
+              <textarea name="about" class="form-control" rows="3" placeholder="A brief introduction about who you are..." required></textarea>
+            </div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label>When is your leisure time?</label>
+                <select name="leisureTime" class="form-control" required>
+                  <option value="" disabled selected>Select Time</option>
+                  <option value="Morning">Morning</option>
+                  <option value="Afternoon">Afternoon</option>
+                  <option value="Evening">Evening</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>How did you hear about TPG?</label>
+                <select name="hearAbout" class="form-control" required>
+                  <option value="" disabled selected>Select Option</option>
+                  <option value="School">School</option>
+                  <option value="From a friend">From a friend</option>
+                  <option value="Attended the program">Attended the program</option>
+                  <option value="Social Media">Social Media</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Would you be available to attend outreach programs?</label>
+              <div class="radio-group">
+                <label class="radio-item"><input type="radio" name="availability" value="Yes" required> Yes</label>
+                <label class="radio-item"><input type="radio" name="availability" value="No"> No</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>What are your expectations from The Purposeful Generation?</label>
+              <textarea name="expectations" class="form-control" rows="3" placeholder="I expect to learn..." required></textarea>
+            </div>
+
+            <button type="submit" id="submitBtn" class="btn btn-primary submit-btn">Submit Bio-Data</button>
+            
+            <div id="statusMessage"></div>
+          </form>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <script>
+    const form = document.getElementById('bioDataForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const statusMessage = document.getElementById('statusMessage');
+
+    // --- PASTE YOUR KEYS HERE ---
+    const IMGBB_API_KEY = "bfbd5166aef0c00c130b2bc6a41558c5"; 
+    const GOOGLE_APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwZwOSe78B0FgK4_cIYGmSYZOe1fTRzZ8LYmhQVk9B8K6Dq6JzAd-TUTM0jm1UvM6Fjkw/exec"; 
+    // ----------------------------
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Disable button and show loading state
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Uploading Image... Please wait.";
+      statusMessage.style.display = "none";
+
+      try {
+        // 1. Upload Image to ImgBB
+        const imageFile = document.getElementById('imageInput').files[0];
+        const formDataImg = new FormData();
+        formDataImg.append("image", imageFile);
+
+        const imgResponse = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+          method: 'POST',
+          body: formDataImg
+        });
+        
+        const imgData = await imgResponse.json();
+        
+        if (!imgData.success) {
+          throw new Error("Image upload failed.");
+        }
+
+        const imageUrl = imgData.data.url;
+
+        // 2. Prepare Data for Google Sheets
+        submitBtn.textContent = "Saving details to Database...";
+        
+        const formDataSheet = new URLSearchParams();
+        formDataSheet.append("fullName", form.fullName.value);
+        formDataSheet.append("dob", form.dob.value);
+        formDataSheet.append("gender", form.gender.value);
+        formDataSheet.append("email", form.email.value);
+        formDataSheet.append("whatsapp", form.whatsapp.value);
+        formDataSheet.append("hobby", form.hobby.value);
+        formDataSheet.append("digitalSkill", form.digitalSkill.value);
+        formDataSheet.append("about", form.about.value);
+        formDataSheet.append("leisureTime", form.leisureTime.value);
+        formDataSheet.append("hearAbout", form.hearAbout.value);
+        formDataSheet.append("availability", form.elements['availability'].value);
+        formDataSheet.append("expectations", form.expectations.value);
+        formDataSheet.append("profilePic", imageUrl); 
+
+        // 3. Send Data to Google Sheets
+        const sheetResponse = await fetch(GOOGLE_APP_SCRIPT_URL, {
+          method: 'POST',
+          body: formDataSheet
+        });
+
+        // Show Success Message
+        statusMessage.textContent = "Bio-Data submitted successfully! Thank you.";
+        statusMessage.className = "status-success";
+        statusMessage.style.display = "block";
+        
+        form.reset(); // Clear the form
+
+      } catch (error) {
+        console.error(error);
+        statusMessage.textContent = "An error occurred. Please try again.";
+        statusMessage.className = "status-error";
+        statusMessage.style.display = "block";
+      } finally {
+        // Reset button
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit Bio-Data";
+      }
+    });
+  </script>
+
+</body>
+</html>
